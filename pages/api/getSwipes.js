@@ -1,8 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import postgres from "postgres";
-const sql = postgres(
-  "postgresql://pidgon:pIwwe7-ryfwor-myzmim@cloud.pidgon.com/pidgon"
-);
+const sql = postgres(process.env.PG_CONNECT);
 export default async function handler(req, res) {
   /**
    * @param {string} uuid

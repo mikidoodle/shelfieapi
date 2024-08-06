@@ -15,9 +15,9 @@ export default async function handler(req, res) {
   }
   let user = [];
   if(username.includes("@") && username.includes(".")) {
-   user = await sql`SELECT * FROM users WHERE email = ${username}`;
+   user = await sql`SELECT password, uuid, username FROM users WHERE email = ${username}`;
   } else {
-    user = await sql`SELECT * FROM users WHERE username = ${username}`;
+    user = await sql`SELECT password, uuid, username FROM users WHERE username = ${username}`;
   }
   console.log(user)
   if(user.length === 0){

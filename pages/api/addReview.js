@@ -23,7 +23,7 @@ export default async function handler(req, res) {
         !title ? "title" : !content ? "content" : !book ? "book" : !uuid ? "uuid" : "username"
       }`, error: true });
   }
-  const user = await sql`SELECT * FROM users WHERE uuid = ${uuid}`;
+  const user = await sql`SELECT username FROM users WHERE uuid = ${uuid}`; 
   if (user.length === 0) {
     return res.status(400).json({ message: "User not found", error: true });
   } else {
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     delete meta.description;
     delete meta.category;
     const newReview =
-      await sql`INSERT INTO reviews (title, content, meta, username, uuid) VALUES (${title}, ${content}, ${meta}, ${username}, ${postUUID}) RETURNING uuid`;
+      await sql`INSERT INTO reviews (title, content, meta, username, uuid, liked) VALUES (${title}, ${content}, ${meta}, ${username}, ${postUUID}, '{}') RETURNING uuid`;
     if (newReview.length === 0) {
       return res.status(400).json({ message: "Review failed", error: true });
     } else {

@@ -13,19 +13,16 @@ export default async function handler(req, res) {
   const { uuid, query } = req.body;
   console.log(query);
   let getUsers =
-    await sql`SELECT username, uuid, reviews, isbn from users LIMIT 20`;
-    console.log(getUsers[0].reviews.length, getUsers[0].isbn.length);
+    await sql`SELECT username, uuid, reviews from users LIMIT 20`;
   var search = new JsSearch.Search("uuid");
   search.addIndex("username");
   search.addDocuments(getUsers);
   let unformattedSearch = search.search(query);
   let formattedSearch = unformattedSearch.map((user) => {
-    console.log(user.reviews.length,user.isbn.length);
     return {
       username: user.username,
       uuid: user.uuid,
       reviewCount: user.reviews.length,
-      libraryCount: user.isbn.length,
     };
   });
   return res.status(200).json({ users: formattedSearch });

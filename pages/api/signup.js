@@ -56,7 +56,7 @@ export default async function handler(req, res) {
     } else {
       bcrypt.hash(password, saltRounds, async function (err, hash) {
         const newUser =
-          await sql`INSERT INTO users (email, username, password, uuid, isbn, reviews, swipes, swipequota, verified) VALUES (${email}, ${username}, ${hash}, ${uuidv4()}, '{}', '{}', '{}', false, false) RETURNING uuid, username`;
+          await sql`INSERT INTO users (email, username, password, uuid, reviews, swipes, swipequota, verified) VALUES (${email}, ${username}, ${hash}, ${uuidv4()}, '{}', '{}', false, false) RETURNING uuid, username`;
         if (err) {
           return res
             .status(400)

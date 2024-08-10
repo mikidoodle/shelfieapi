@@ -7,7 +7,7 @@ export default async function handler(req, res) {
    * @param {string} swipes
    */
   const { uuid } = req.body;
-  /*let getUserSwipes = await sql`SELECT swipes from users where uuid=${uuid}`;
+  let getUserSwipes = await sql`SELECT swipes from users where uuid=${uuid}`;
   let getUserLibrary = await sql`SELECT isbn from users where uuid=${uuid}`;
   let library =
     getUserLibrary[0].isbn.length > 15
@@ -51,8 +51,8 @@ export default async function handler(req, res) {
   );
 
   var response = await getSuggestions.json();
-  return res.status(200).json({ message: response.choices[0].message.content });*/
-  return res
+  return res.status(200).json({ message: response.choices[0].message.content });
+ /* return res
     .status(200)
     .json({
       message: JSON.stringify([
@@ -72,5 +72,5 @@ export default async function handler(req, res) {
         "The Light We Lost",
         "The Tattooist of Auschwitz",
       ]),
-    });
+    });*/
 }

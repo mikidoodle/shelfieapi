@@ -7,7 +7,10 @@ export default async function handler(req, res) {
    * @param {string} swipes
    */
   const { uuid } = req.body;
-  let getUserSwipes = await sql`SELECT swipes from users where uuid=${uuid}`;
+  let getUserSwipes = await sql`SELECT swipes, swipequota from users where uuid=${uuid}`;
+  if(getUserSwipes[0].swipequota === true) {
+    return res.status(403).json({ message: "User has no more swipes", error: true });
+  }
   let swipes =
     getUserSwipes[0].swipes.length > 10
       ? getUserSwipes[0].swipes.slice(0, 10)
@@ -16,7 +19,7 @@ export default async function handler(req, res) {
   //JSON stringiyf the swipes array
   let prompt = `Get 10 bestselling/trending book recommendations based on user's past 10 books: ${JSON.stringify(
     swipes.reverse()
-  )}. If empty return 15 all time top books. Return only book titles in a JS string array. Recommend equally from liked genres. No obscure books or books already in the list; THIS IS IMPORTANT. Bestsellers/trending only. No additional text.`;
+  )}. If empty return 10 all time top books. Return only book titles in a JS string array. Recommend equally from liked genres. No obscure books. NO BOOKS ALREADY IN THE LIST. Bestsellers/trending only. No additional text.`;
   console.log(prompt);
   var getSuggestions = await fetch(
     "https://jamsapi.hackclub.dev/openai/chat/completions",

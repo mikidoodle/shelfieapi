@@ -6,21 +6,21 @@ const saltRounds = 10;
 import bcrypt from "bcrypt";
 export default async function handler(req, res) {
   /**
-   * @param {string} title
    * @param {string} content
    * @param {string} book: {etag: string, title: string,author: string,description: string,category: string} //do not store last two fields
    * @param {string} uuid
    * @param {number} username
+   * @param {string} emotions
    */
 
-  const { title, content, book, uuid, username } = req.body;
+  const { title, content, book, uuid, username, emotions } = req.body;
   const postUUID = uuidv4();
-  if (!title || !content || !book || !uuid || !username) {
+  if (!content || !book || !uuid || !username || !emotions) {
     console.log(req.body)
     return res
       .status(400)
       .json({ message: `Missing ${
-        !title ? "title" : !content ? "content" : !book ? "book" : !uuid ? "uuid" : "username"
+        !content ? "content" : !book ? "book" : !uuid ? "uuid" : !username ? "username" : "emotions"
       }`, error: true });
   }
   const user = await sql`SELECT username FROM users WHERE uuid = ${uuid}`; 
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     delete meta.description;
     delete meta.category;
     const newReview =
-      await sql`INSERT INTO reviews (title, content, meta, username, uuid, liked) VALUES (${title}, ${content}, ${meta}, ${username}, ${postUUID}, '{}') RETURNING uuid`;
+      await sql`INSERT INTO reviews (content, meta, username, uuid, liked, emotions) VALUES (${content}, ${meta}, ${username}, ${postUUID}, '{}', ${emotions}) RETURNING uuid`;
     if (newReview.length === 0) {
       return res.status(400).json({ message: "Review failed", error: true });
     } else {
@@ -39,6 +39,6 @@ export default async function handler(req, res) {
       return res
         .status(200)
         .json({ message: "Review successful!", postuuid: newReview[0].uuid, error: false });
-    }
+    } 
   }
 }

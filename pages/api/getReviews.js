@@ -17,6 +17,7 @@ if(query !== "") {
   search = new JsSearch.Search('uuid');
 search.addIndex('title');
 search.addIndex('content');
+search.addIndex(['meta', 'title']);
 search.addIndex(['meta', 'authors']);
 search.addIndex(['meta', 'description']);
 

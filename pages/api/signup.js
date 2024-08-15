@@ -5,9 +5,9 @@ const sql = postgres(process.env.PG_CONNECT);
 var nodemailer = require("nodemailer");
 const transporter = nodemailer.createTransport({
   service: "iCloud",
-  auth: {
+  auth: { 
     user: "mihirmaroju@icloud.com",
-    pass: process.env,
+    pass: process.env.EMAILTOKEN,
   },
 });
 const saltRounds = 10;

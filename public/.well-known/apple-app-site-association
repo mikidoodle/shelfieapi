@@ -1,17 +1,21 @@
+
 {
-  "applinks": {
-    "apps": [],
-    "details": [
-      {
-        "appID": "P6PV2R9443.com.pidgon.shelfie",
-        "paths": ["/review/*"]
-      }
-    ]
-  },
-  "activitycontinuation": {
-    "apps": ["P6PV2R9443.com.pidgon.shelfie"]
-  },
-  "webcredentials": {
-    "apps": ["P6PV2R9443.com.pidgon.shelfie"]
+    "applinks": {
+      "details": [
+        {
+          "appIDs": ["AP6PV2R9443.com.pidgon.shelfie"],
+          "components": [
+            {
+              "#": "no_universal_links",
+              "exclude": true,
+              "comment": "Matches any URL whose fragment equals no_universal_links and instructs the system not to open it as a universal link"
+            },
+            {
+              "/": "/review/*",
+              "comment": "Matches any URL whose path starts with /buy/"
+            }
+          ]
+        }
+      ]
+    }
   }
-}

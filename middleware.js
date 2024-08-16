@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server'
  
 // This function can be marked `async` if using `await` inside
 export function middleware(request) {
-  return NextResponse.redirect('https://testflight.apple.com/join/cmfmEKkt')
+    //return json
+    return NextResponse.json({ message: "Hello World!" })
+  //return NextResponse.redirect('https://testflight.apple.com/join/cmfmEKkt')
 }
  
 // See "Matching Paths" below to learn more

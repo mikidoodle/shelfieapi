@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "P6PV2R9443.com.pidgon.shelfie",
+        "paths": ["/review/*"]
+      }
+    ]
+  },
+  "activitycontinuation": {
+    "apps": ["P6PV2R9443.com.pidgon.shelfie"]
+  },
+  "webcredentials": {
+    "apps": ["P6PV2R9443.com.pidgon.shelfie"]
+  }
+}
